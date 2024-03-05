@@ -41,6 +41,17 @@ public class OrderService {
             throw new Exception("Customer does not have enough balance to place the order");
         }
 
+        List<Product> newProductList = productList.stream().
+                map(product -> {
+                    product.setQuantity(product.getQuantity()- 1);
+                    productRepository.save(product);
+                    return product;
+                        }).toList();
+
+
+
+
+
         Order order = new Order();
         order.setCustomer(customer);
         order.setProducts(productList);
